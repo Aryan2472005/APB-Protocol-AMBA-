@@ -1,27 +1,10 @@
-//`include "apb_master.v"
-//`include "slave1.v"
-//`include "slave2.v"
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 03.09.2025 14:35:16
-// Design Name: 
-// Module Name: APB
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
+// NAME: ARYAN SINGH
+// Design Name: APB2 PROTOCOL TOP MODULE
+// Project Name: APB-PROTOCOL
 // Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
 //////////////////////////////////////////////////////////////////////////////////
-
 
 module APB(
             input PCLK,
