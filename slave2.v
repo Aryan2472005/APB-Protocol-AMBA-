@@ -1,0 +1,43 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 03.09.2025 18:58:43
+// Design Name: 
+// Module Name: slave2
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module slave2(
+                input PCLK, PRST, PSEL, PENABLE, PWRITE,
+                input [7:0] padd, pwdata,
+                output [7:0] prdata2,
+                output reg PREADY);
+                
+    reg [7:0] reg_add;
+    reg [7:0] mem2 [63:0];
+    
+    assign prdata = mem2[reg_add];
+    
+    always @(*) begin
+        if(!PRST) PREADY = 0;
+        else if(PSEL && !PENABLE && !PWRITE) PREADY = 0;
+        else if(PSEL && !PENABLE && PWRITE) PREADY = 0;
+        else if(PSEL && PENABLE && !PWRITE) PREADY = 1;
+        else if(PSEL && PENABLE && PWRITE) PREADY = 1;
+        else PREADY = 0;
+    end
+    
+endmodule
