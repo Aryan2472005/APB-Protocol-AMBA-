@@ -3,7 +3,7 @@
 // NAME: ARYAN SINGH
 // Design Name: APB2 PROTOCOL TOP MODULE
 // Project Name: APB-PROTOCOL
-// Description: 
+// Description:  
 //////////////////////////////////////////////////////////////////////////////////
 
 module APB(
