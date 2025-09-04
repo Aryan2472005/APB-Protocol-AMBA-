@@ -1,22 +1,9 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 03.09.2025 18:58:43
-// Design Name: 
-// Module Name: slave2
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
+// NAME: ARYAN SINGH
+// Design Name: SLAVE2
+// Project Name: APB-PROTOCOL
 // Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
 //////////////////////////////////////////////////////////////////////////////////
 
 
