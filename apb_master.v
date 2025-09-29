@@ -14,15 +14,15 @@ module apb_master(
         input [7:0] prdata,
         output reg [7:0] apb_rd_data_out,
         output reg PWRITE, PENABLE,
-        output SEL1, SEL2,
+        output PSEL1, PSEL2,
         output reg [8:0] padd,
         output reg [7:0] pwdata,
         output PSLVERR
     );
     
     
-    reg [1:0] state, nstate;
-    
+    reg [2:0] state, nstate;
+
     reg setup_error,
         invalid_setup_error,
         invalid_read_paddr,
@@ -31,7 +31,9 @@ module apb_master(
     
     localparam idle = 2'b00, setup = 2'b01, access = 2'b10, enable = 2'b11;
     
-    always @(PCLK) begin
+
+    
+    always @(posedge PCLK or negedge PRST) begin
         if(!PRST) begin     // ACTIVE LOW SIGNAL
             state <= idle;
         end
@@ -40,29 +42,38 @@ module apb_master(
     
     always @(state, transfer, PREADY) begin
         if(!PRST) begin
-            state <= nstate;
+            nstate <= idle;
         end
         else begin
+            PWRITE = ~RD_WR;
             case(state)
                 idle: begin
-                    PENABLE <= 0;
-                    if(transfer) nstate <=  setup;
-                    else nstate <= idle;
+                    PENABLE = 0;
+                    if(!transfer) nstate <=  idle;
+                    else nstate <= setup;
                 end
                 
                 setup: begin
                     PENABLE = 0;
-                    if(RD_WR) padd <= apb_rd_padd;
-                    else padd <= apb_wr_padd; pwdata = apb_wr_data;
+                    if(RD_WR)begin
+                        padd <= apb_rd_padd;
+                    end
+                    else begin
+                        padd <= apb_wr_padd; 
+                        pwdata = apb_wr_data;
+                    end
                     
                     if(transfer && !PSLVERR) begin
                         nstate <= enable;
                     end
-                    else nstate <= idle;
+                    else begin
+                    nstate <= idle;
+                    end
                 end
                 
                 enable: begin
-                    if(SEL1 || SEL2) begin
+                    if(PSEL1 || PSEL2) begin
+                        PENABLE = 1;
                         if(transfer && !PSLVERR) begin
                             if(PREADY) begin
                                 if(RD_WR) begin
@@ -78,8 +89,10 @@ module apb_master(
             endcase
         end
     end
+
+
     
-    assign {SEL1,SEL2} = ((state != idle) ? (padd[8] ? {1'b0,1'b1} : {1'b1,1'b0}) : 2'd0);
+    assign {PSEL1,PSEL2} = ((state != idle) ? (padd[8] ? {1'b0,1'b1} : {1'b1,1'b0}) : 2'd0);
     
     always @(*) begin
         if(!PRST) begin
@@ -115,8 +128,8 @@ module apb_master(
                 // NOW CHECKING FOR THE DATA AND ADDR IN WR & RD OPERATION
                 if(state == setup) begin
                     if(RD_WR) begin
-                        if(padd == apb_rd_padd) setup_error = 0;
-                        else setup_error = 1;
+                        if(padd == apb_rd_padd) begin setup_error = 0; end
+                        else begin setup_error = 1; end
                     end
                     else begin
                         if(padd == apb_wr_padd && pwdata == apb_wr_data) setup_error = 0;
@@ -132,16 +145,4 @@ assign PSLVERR = invalid_setup_error;
    
     
 endmodule
-
-
-
-
-
-
-
-
-
-
-
-
 
