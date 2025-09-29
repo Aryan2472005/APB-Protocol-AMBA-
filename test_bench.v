@@ -35,7 +35,7 @@ initial begin
     # 10 PRST = 1;
 end
 
-///////// read amd write slave 1 ////////////
+///////// read and write slave 1 ////////////
 initial begin
 transfer = 0;
 #10 transfer = 1;
