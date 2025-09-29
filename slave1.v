@@ -6,24 +6,29 @@
 // Description:  
 //////////////////////////////////////////////////////////////////////////////////
 
-
-module slave1(
-                input PCLK, PRST, PSEL, PENABLE, PWRITE,
-                input [7:0] padd, pwdata,
-                output [7:0] prdata,
-                output reg PREADY);
-                
+module slave1 (
+    input        PCLK,
+    input        PRST,
+    input        PSEL1,
+    input        PENABLE,
+    input        PWRITE,
+    input  [7:0] padd1,
+    input  [7:0] PWDATA,
+    output [7:0] prdata1,
+    output reg       PREADY
+);
     reg [7:0] reg_add;
-    reg [7:0] mem [63:0];
+    reg [7:0] mem1 [63:0];
     
-    assign prdata = mem[reg_add];
+    assign prdata1 = mem1[reg_add];
     
     always @(*) begin
-        if(!PRST) PREADY =0;
-        else if(PSEL && !PENABLE && !PWRITE) PREADY = 0;
-        else if(PSEL && !PENABLE && PWRITE) PREADY = 0;
-        else if(PSEL && PENABLE && !PWRITE) PREADY = 1;
-        else if(PSEL && PENABLE && PWRITE) PREADY = 1;
+        if(!PRST) PREADY = 0;
+        else if(PSEL1 && !PENABLE && !PWRITE) PREADY = 0;
+        else if(PSEL1 && !PENABLE && PWRITE) PREADY = 0;
+        else if(PSEL1 && PENABLE && !PWRITE)begin PREADY = 1; reg_add = padd1; end
+        else if(PSEL1 && PENABLE && PWRITE) begin PREADY = 1; mem1[padd1] = PWDATA; end
         else PREADY = 0;
     end
+    
 endmodule
