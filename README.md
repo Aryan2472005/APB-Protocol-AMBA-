@@ -1,6 +1,4 @@
 # APB-Protocol
-<img width="1893" height="917" alt="Screenshot 2025-09-05 041845" src="https://github.com/user-attachments/assets/a5b0dae6-49cb-45e6-9f4d-d1776f55dc01" />
-
 🔑 Key Features
 1. APB Master FSM
    * Implements IDLE, SETUP, and ENABLE phases.
@@ -20,6 +18,19 @@
     * Supports two slaves (extendable to more).
     * Address bit [8] is used to select between slave1 and slave2.
     * Multiplexes PRDATA and PREADY signals from active slave to the master.
+
+⚙️ How It Works
+   1. Write Transaction
+        * Master enters setup phase → places PWDATA on bus, asserts PWRITE=1.
+        * On enable phase, slave latches PWDATA into mem1[address].
+        * Slave asserts PREADY=1 to acknowledge transaction.
+        * Data is now stored in slave’s internal memory.
+   2. Read Transaction
+        * Master enters setup phase → places address on bus, asserts PWRITE=0.
+        * On enable phase, slave drives data from mem1[address] onto PRDATA.
+        * Master captures PRDATA into apb_rd_data_out.
+
+<img width="1893" height="917" alt="Screenshot 2025-09-05 041845" src="https://github.com/user-attachments/assets/a5b0dae6-49cb-45e6-9f4d-d1776f55dc01" />
 
 READ WRITE FUNCTION OF SLAVE 1.
 <img width="1552" height="717" alt="slave 1 write" src="https://github.com/user-attachments/assets/fbd57d1c-b97e-4c03-9714-1fa1a59662a5" />
