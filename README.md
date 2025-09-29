@@ -25,3 +25,7 @@ READ WRITE FUNCTION OF SLAVE 1.
 <img width="1552" height="717" alt="slave 1 write" src="https://github.com/user-attachments/assets/fbd57d1c-b97e-4c03-9714-1fa1a59662a5" />
 <img width="1568" height="577" alt="read_slave1" src="https://github.com/user-attachments/assets/31bf6502-b47d-4233-bc13-147d85892be6" />
 
+READ WRITE FUNCTION OF SLAVE 2.
+<img width="1512" height="627" alt="write_slave2" src="https://github.com/user-attachments/assets/480f946a-732f-4c7b-a58b-118ec88ed45f" />
+<img width="1560" height="552" alt="read_slave2" src="https://github.com/user-attachments/assets/4aa91b08-57c5-4dd6-bfbd-ba20683ac6f1" />
+
