@@ -69,17 +69,6 @@ repeat(3) @(posedge PCLK) begin transfer = 1;apb_rd_padd = 9'b100111101; end
  //@(negedge PCLK)      write_slave1;  
 end
 
-
-
-////////read//////////
-//initial begin
-// @(posedge PCLK) RD_WR = 1; PRST = 0; transfer = 0;
-// @(posedge PCLK) PRST = 1;
-//repeat(3) @(posedge PCLK) transfer = 1;
-////repeat(2) @(posedge PCLK) RD_slave1;
-//end
-
-
 task write_slave1;
 
 for (i = 0; i < 8; i=i+1) begin
