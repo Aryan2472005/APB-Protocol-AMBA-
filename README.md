@@ -20,3 +20,8 @@
     * Supports two slaves (extendable to more).
     * Address bit [8] is used to select between slave1 and slave2.
     * Multiplexes PRDATA and PREADY signals from active slave to the master.
+
+READ WRITE FUNCTION OF SLAVE 1.
+<img width="1552" height="717" alt="slave 1 write" src="https://github.com/user-attachments/assets/fbd57d1c-b97e-4c03-9714-1fa1a59662a5" />
+<img width="1568" height="577" alt="read_slave1" src="https://github.com/user-attachments/assets/31bf6502-b47d-4233-bc13-147d85892be6" />
+
