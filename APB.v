@@ -18,13 +18,13 @@ module APB(
     
     wire [7:0] PRDATA, PRDATA1, PRDATA2, PWDATA;
     wire [8:0] PADDR;
-    wire PREADY, PREADY1, PREADY2, SEL1, SEL2, PWRITE, PENABLE;
+    wire PREADY, PREADY1, PREADY2, PSEL1, PSEL2, PWRITE, PENABLE, PSLVERR;
     
     assign PREADY = PADDR[8] ? PREADY2 : PREADY1 ;
-    assign PRDATA = RD_WR ? (PADDR[8] ? PRDATA2 : PRDATA1) : 8'dx ;
+    assign PRDATA = (RD_WR) ? (PADDR[8] ? PRDATA2 : PRDATA1) : 8'dx ;
     
-    apb_master master(PCLK, PRST, transfer, RD_WR, PREADY, apb_wr_padd, apb_rd_padd, apb_wr_data,
-                     PRDATA, apb_rd_data_out, PWRITE, PENABLE, SEL1, SEL2, PADDR, PWDATA);
+    apb_master master_inst(PCLK, PRST, transfer, RD_WR, PREADY, apb_wr_padd, apb_rd_padd, apb_wr_data,
+                     PRDATA, apb_rd_data_out, PWRITE, PENABLE, PSEL1, PSEL2, PADDR, PWDATA, PSLVERR);
     slave1 s1(PCLK, PRST, PSEL1,PENABLE, PWRITE, PADDR[7:0], PWDATA, PRDATA1, PREADY1);
     slave2 s2(PCLK, PRST, PSEL2,PENABLE, PWRITE, PADDR[7:0], PWDATA, PRDATA2, PREADY2);
 
